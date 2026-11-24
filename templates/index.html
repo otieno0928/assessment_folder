@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Market Quote & Watchlist Explorer</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div>
+        <h1>Market Quote &amp; Watchlist Explorer</h1>
+        <p class="subtitle">Live equity, forex, and crypto quotes powered by Twelve Data via RapidAPI</p>
+      </div>
+      <div class="server-pill" title="Handled by server hostname">
+        Served by: <strong id="server-host">{{ hostname }}</strong>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Lookup Form -->
+    <section class="card">
+      <form id="quote-form" class="lookup-grid" novalidate>
+        <div class="field">
+          <label for="symbol-input">Symbol / Ticker</label>
+          <input
+            id="symbol-input"
+            name="symbol"
+            type="text"
+            placeholder="e.g. AAPL, MSFT, NVDA, EUR/USD, BTC/USD"
+            autocomplete="off"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="interval-select">Interval</label>
+          <select id="interval-select" name="interval">
+            <option value="1day" selected>1 Day (1day)</option>
+            <option value="1h">1 Hour (1h)</option>
+            <option value="4h">4 Hours (4h)</option>
+            <option value="15min">15 Minutes (15min)</option>
+            <option value="5min">5 Minutes (5min)</option>
+            <option value="1week">1 Week (1week)</option>
+          </select>
+        </div>
+
+        <div class="field actions">
+          <button type="submit" id="fetch-btn" class="btn btn-primary">Fetch Quote</button>
+          <button type="button" id="sample-btn" class="btn btn-secondary">Load Sample Quotes</button>
+        </div>
+      </form>
+
+      <div id="status-banner" class="banner hidden" role="alert"></div>
+    </section>
+
+    <section class="card controls-bar">
+      <div class="field">
+        <label for="filter-search">Filter Watchlist</label>
+        <input
+          id="filter-search"
+          type="text"
+          placeholder="Filter by symbol, name, or exchange..."
+        />
+      </div>
+
+      <div class="field">
+        <label for="direction-filter">Movement</label>
+        <select id="direction-filter">
+          <option value="all" selected>All Quotes</option>
+          <option value="gainers">Gainers (+%)</option>
+          <option value="losers">Losers (-%)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="sort-select">Sort By</label>
+        <select id="sort-select">
+          <option value="symbol-asc" selected>Symbol (A → Z)</option>
+          <option value="price-desc">Price (High → Low)</option>
+          <option value="price-asc">Price (Low → High)</option>
+          <option value="change-desc">% Change (High → Low)</option>
+          <option value="change-asc">% Change (Low → High)</option>
+          <option value="volume-desc">Volume (High → Low)</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- Quotes Table -->
+    <section class="card">
+      <div class="table-header">
+        <h2>Tracked Quotes (<span id="quote-count">0</span>)</h2>
+        <span id="last-updated" class="muted">No quotes loaded yet</span>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Name</th>
+              <th>Exchange</th>
+              <th>Price</th>
+              <th>Change</th>
+              <th>% Change</th>
+              <th>Open / High / Low</th>
+              <th>Volume</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="quotes-tbody">
+            <tr class="empty-row">
+              <td colspan="9">
+                Enter a symbol above (like <strong>AAPL</strong>) or click <strong>Load Sample Quotes</strong> to begin.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="detail-card" class="card hidden">
+      <div class="table-header">
+        <h2 id="detail-title">Quote Details</h2>
+        <button type="button" id="close-detail-btn" class="btn btn-small">Close</button>
+      </div>
+      <div id="detail-grid" class="detail-grid"></div>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <p>Data provided by <a href="https://twelvedata.com/" target="_blank" rel="noopener noreferrer">Twelve Data</a> via RapidAPI.</p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

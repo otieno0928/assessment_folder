@@ -1,0 +1,15 @@
+# Environment variables & secrets
+.env
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+venv/
+.venv/
+
+# OS / editor files
+.DS_Store
+.vscode/
+.idea/

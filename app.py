@@ -155,7 +155,6 @@ def get_quote():
     _QUOTE_CACHE[cache_key] = (now + CACHE_TTL, payload)
     return _json_response(payload, 200)
 
-
 if __name__ == "__main__":
     port = int(os.getenv("PORT", "5000"))
     app.run(host="0.0.0.0", port=port, debug=False)

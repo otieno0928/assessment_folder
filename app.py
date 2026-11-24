@@ -11,7 +11,7 @@ except ImportError:
     def load_dotenv():
         """Optional fallback when python-dotenv is not installed."""
         return False
-
+        
 load_dotenv()
 
 app = Flask(__name__)

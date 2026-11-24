@@ -150,13 +150,16 @@ N/B:Confirm HTTP/1.1 200 OK, live market quote fields, "cached":false on the ini
 * Open http://13.135.173.203/ in a browser and perform a symbol search in the UI
 * Inspect /opt/assessment_folder/gunicorn.log on Web01 and Web02 and /var/log/nginx/access.log and /var/log/nginx/error.log on Lb01 to confirm clean operation.
 
-      __**Challenges encountered in the process and how they were overcome**__
+               **Challenges encountered in the process and how they were overcome** 
 # Persistent SSH permission denied(publickey) and Host Key Prompts: A good number of times instances were provisioned before the updated SSH  public key was saved to the profile so i had to keep on asking for a new server, wait for about a minute for the ssh key to be configured or if required i genberated a new key and saved to myu intranet profile and waited for the server to configure the new key.
+
 # Running commands leading to path and syntax errors: This occurred while running commands ($env:USERPROFILE) in the remote shell and the (&&) symbols. Running exit to return to Powershell when switching hosts moving into /opt/assessment_folder before editing .env or starting Gunicorn, and passing remote commands via ssh ... "..." resolved these issues.
+
 # Missing 'nano' Editor: Trying to edit .env with nano returned command not found. Writing .env with cat <<'EOF' > .env avoided this missing-editor friction.
+
 # Initial 404 Not Found Before Nginx Upstream Setup: Requesting /api/health on 7384-lb-01 prior to configuring /etc/nginx/conf.d/quote_lb.conf and reloading Nginx returned 404. Adding the quote_backends upstream configuration, validating with sudo nginx -t, and reloading Nginx immediately enabled 200 OK round-robin routing across both web servers
 
-               **   Credits & Resources **
+                                    **   Credits & Resources **
 * Market Data API: Twelve Data and RapidAPI for providing market quote data via twelve-data1.p.rapidapi.com[cite: 18].
 
 * Web Framework & WSGI Server: Flask and Gunicorn for serving the Python web application and endpoints.

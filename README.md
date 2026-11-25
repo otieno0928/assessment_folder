@@ -1,3 +1,6 @@
+The link to the demo video: https://youtu.be/rSLRtidzas8
+
+
 # Stock Quote Web Application
 
 This is a Flask-based stock quote web application served with Gunicorn behind an Nginx round-robin load balancer across two application nodes (`7384-web-01` and `7384-web-02`). It retrieves market quote data from Twelve Data via RapidAPI (`twelve-data1.p.rapidapi.com`), caches responses in memory using a configurable TTL (`CACHE_TTL_SECONDS=60`) to minimize external API requests, and exposes health and quote endpoints alongside a browser interface.
